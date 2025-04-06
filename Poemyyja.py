@@ -1,41 +1,39 @@
+# Impordime ja käivitame pygamei
 import pygame
-import sys
-
-# Initsialiseeri Pygame
 pygame.init()
 
-# Mänguakna seaded
-WIDTH, HEIGHT = 640, 480
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Ülesanne 1")
+# Loome mänguakna ja lisame nime
+aken = pygame.display.set_mode([640, 480])
+pygame.display.set_caption("Poemyyja")
 
-# Lae pildid
-bg = pygame.image.load("bgshop.jpg")
-seller = pygame.image.load("seller.png")
-chat = pygame.image.load("chat.png")
+# Laeme taustapildi ja salvestame selle muutujasse
+taust = pygame.image.load("bg_shop.png")
 
-# Skaali pildid (valikuline, kui vaja mahutada ekraanile)
-bg = pygame.transform.scale(bg, (WIDTH, HEIGHT))
+# Laeme müüja pildi ja seadistame suuruse
+mehike = pygame.image.load("seller.png")
+mehike = pygame.transform.scale(mehike, (255, 305))
 
-# Font ja tekst
-font = pygame.font.SysFont("arial", 24)
-text = font.render("Minu Nimi", True, (255, 255, 255))  # Valge tekst
+# Laeme jutu mulli pildi ja suuruse
+jutu_mull = pygame.image.load("chat.png")
+jutu_mull = pygame.transform.scale(jutu_mull, (255, 200))
 
-# Põhiloop
-running = True
-while running:
+aken.blit(taust, [0, 0])            # Joonistame taustapildi
+aken.blit(mehike, [105, 160])       # Joonistame mehikese
+aken.blit(jutu_mull, [247, 67])     # Joonistame jutu mulli
+
+# Loome fondi objekti, mille suurus on 35
+font = pygame.font.Font(None, 35)
+# Loome tekstipildi valge värviga
+jutt = font.render("Anni", True, [255, 255, 255])
+
+# Joonistame teksti ekraanile
+aken.blit(jutt, [325, 145])
+# Uuendame ekraani
+pygame.display.flip()
+
+# Peamine tsükkel
+tootab = True
+while tootab:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-
-    # Joonista kõik ekraanile
-    screen.blit(bg, (0, 0))                  # Taust
-    screen.blit(seller, (50, 200))           # Poemüüja
-    screen.blit(chat, (250, 100))            # Jutumull
-    screen.blit(text, (270, 130))            # Tekst jutumulli sees
-
-    pygame.display.flip()
-
-# Lõpeta mäng
-pygame.quit()
-sys.exit()
+            tootab = False
